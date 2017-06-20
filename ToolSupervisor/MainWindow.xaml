@@ -1,0 +1,131 @@
+﻿<Window x:Class="ToolSupervisor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:ToolSupervisor.Converters"
+        xmlns:local="clr-namespace:ToolSupervisor"
+        mc:Ignorable="d"
+        Title="Tool Supervisor" Height="350" Width="400">
+    <Window.Resources>
+        <converter:StatusToColorConverter x:Key="convStatusToColor" />
+        <converter:StatusToTextConverter x:Key="convStatusToText" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="listBox_tools" Grid.Column="0" Margin="5" AllowDrop="True" Drop="listBox_tools_Drop" DragOver="listBox_tools_DragOver"
+                 HorizontalContentAlignment="Stretch" SelectionMode="Single">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5 0 0 0" Text="{Binding Title}" />
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 5 0" 
+                                   Text="{Binding Status, Converter={StaticResource convStatusToText}}"
+                                   Foreground="{Binding Status, Converter={StaticResource convStatusToColor}}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Column="1" Margin="20">
+            <Button x:Name="btn_refresh" Content="Refresh" Click="btn_refresh_Click">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger 
+                                 Binding ="{Binding ElementName=listBox_tools, Path=HasItems}" 
+                                 Value="false">
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="btn_turnOn" Content="Run Tool" Click="btn_turnOn_Click" Margin="0 15 0 0">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger 
+                     Binding ="{Binding ElementName=listBox_tools, Path=SelectedIndex}" 
+                     Value="-1">
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="btn_turnOff" Content="Kill Process" Click="btn_turnOff_Click" Margin="0 5 0 0">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger 
+                     Binding ="{Binding ElementName=listBox_tools, Path=SelectedIndex}" 
+                     Value="-1">
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="btn_turnOnAll" Content="Run All" Click="btn_turnOnAll_Click" Margin="0 15 0 0">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger 
+                                 Binding ="{Binding ElementName=listBox_tools, Path=HasItems}" 
+                                 Value="false"> 
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="btn_turnOffAll" Content="Kill All" Click="btn_turnOffAll_Click" Margin="0 5 0 0">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger 
+                                 Binding ="{Binding ElementName=listBox_tools, Path=HasItems}" 
+                                 Value="false">
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Margin="20" VerticalAlignment="Bottom">
+            <Button x:Name="btn_removeOne" Content="Remove Tool" Click="btn_removeOne_Click" Margin="0 0 0 5">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger 
+                     Binding ="{Binding ElementName=listBox_tools, Path=SelectedIndex}" 
+                     Value="-1">
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="btn_removeAll" Content="Remove All" Click="btn_removeAll_Click">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger 
+                                 Binding ="{Binding ElementName=listBox_tools, Path=HasItems}" 
+                                 Value="false">
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
