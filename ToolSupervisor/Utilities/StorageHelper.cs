@@ -10,7 +10,7 @@ namespace ToolSupervisor.Utilities
 {
     public static class StorageHelper
     {
-        public static void SaveTools(List<ManagedTool> scoreList)
+        public static void SaveTools(List<ManagedTool> toolList)
         {
             using (MemoryStream ms = new MemoryStream())
             {
