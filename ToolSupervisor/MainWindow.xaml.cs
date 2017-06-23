@@ -89,6 +89,11 @@ namespace ToolSupervisor
             StorageHelper.SaveTools(managedTools.ToList());
         }
 
+        private void listBox_tools_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ProcessHelper.StartProcess(System.IO.Path.GetDirectoryName((listBox_tools.SelectedItem as ManagedTool).Path));
+        }
+
 
         private void listBox_tools_Drop(object sender, DragEventArgs e)
         {

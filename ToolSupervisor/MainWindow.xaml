@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
 
         <ListBox x:Name="listBox_tools" Grid.Column="0" Margin="5" AllowDrop="True" Drop="listBox_tools_Drop" DragOver="listBox_tools_DragOver"
-                 HorizontalContentAlignment="Stretch" SelectionMode="Single">
+                 HorizontalContentAlignment="Stretch" SelectionMode="Single" MouseDoubleClick="listBox_tools_MouseDoubleClick">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
